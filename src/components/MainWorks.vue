@@ -1,8 +1,23 @@
 <template>
-  <div class="row justify-center">
-    <WorkCard v-for="card in cards" :key="card"
-      :data="card"
+  <div class="q-pa-md row justify-center">
+    <q-btn-toggle
+      unelevated
+      v-model="toggle"
+      toggle-color="primary"
+      class="fadeIn slower animated"
+      :options="toggleOptions"
     />
+  </div>
+  <div class="row justify-center">
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn slower"
+      leave-active-class="animated fadeOut slow"
+    >
+      <WorkCard v-for="card in filteredCards" :key="card"
+                :data="card"
+      />
+    </transition-group>
   </div>
 </template>
 <script>
@@ -16,7 +31,14 @@ export default defineComponent({
   name: 'MainWorks',
   data() {
     return {
-      cards: []
+      cards: [],
+      toggle: null,
+      toggleOptions: [
+        {label: 'Все', value: null},
+        {label: 'Vue.js', value: 'vue'},
+        {label: 'javascript', value: 'javascript'},
+        {label: 'Node.js', value: 'nodejs'}
+      ]
     }
   },
   async mounted() {
@@ -24,11 +46,22 @@ export default defineComponent({
     querySnapshot.forEach((doc) => {
       const card = doc.data()
       card.idx = doc.id
+      card.categories = card.categories.map(cat => cat.toLowerCase())
       this.cards.unshift(card)
     });
+    this.cards = this.cards.sort((a, b) => a.id - b.id)
   },
   components: {
     WorkCard
+  },
+  computed: {
+    filteredCards() {
+      if (!this.toggle) return this.cards
+      return this.cards?.filter(card => card.categories.includes(this.toggle)) || []
+    }
   }
 })
 </script>
+<style scoped lang="sass">
+
+</style>

@@ -2,7 +2,8 @@
   <div class="q-pa-sm items-start q-gutter-md">
     <q-card
       class="my-card col-12 col-md-4"
-      flat bordered
+      flat
+      bordered
     >
       <q-img
         :src="data.img.includes('https') ? data.img : 'https://pullso.github.io/' + data.img"
@@ -14,19 +15,16 @@
 
       <q-card-section>
         <q-chip
-          dense v-for="(c,idx) in data.categories" :key="c"
+          dense
+          size="md"
+          v-for="(c,idx) in data.categories" :key="c"
           :color="idx=== 0 ? 'primary' : ''"
           :text-color="idx===0 ? 'white' : ''"
         >
-          <div
-            class="text-overline"
-
-          >
-            {{ c.toUpperCase() }}
-          </div>
+          <div class="text-overline">{{ c.toUpperCase() }}</div>
         </q-chip>
         <div class="row justify-between flex-center">
-          <div class="text-subtitle2 q-mt-sm q-mb-xs">{{ data.title }}</div>
+          <div class="my-card__title text-bold q-my-xs">{{ data.title }}</div>
         </div>
       </q-card-section>
 
@@ -84,9 +82,12 @@ export default defineComponent({
 
 <style lang="sass" scoped>
 .my-card
-  width: 95%
-  max-width: 350px
-  min-width: 350px
+  width: 90%
+  max-width: 310px
+  min-width: 310px
+  &__title
+    font-size: 16px
+    font-weight: 700
 
 </style>
 
