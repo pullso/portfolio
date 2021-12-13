@@ -1,17 +1,19 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
-  </q-page>
+  <MainHeader/>
+  <MainWorks/>
+  <MainCertificates />
+  <MainAbout />
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+import MainHeader from "components/MainHeader";
+import MainWorks from "components/MainWorks";
+import MainCertificates from "components/MainCertificates";
+import MainAbout from "components/MainAbout";
 
 export default defineComponent({
-  name: 'PageIndex'
+  name: 'PageIndex',
+  components: {MainAbout, MainCertificates, MainWorks, MainHeader},
 })
 </script>

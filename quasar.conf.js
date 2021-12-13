@@ -22,6 +22,7 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
+      'firebase'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -101,7 +102,7 @@ module.exports = configure(function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations:'all',
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
@@ -140,9 +141,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `pullso portfolio`,
-        short_name: `pullso portfolio`,
-        description: `A Quasar Framework app`,
+        name: `Павел Дубицкий - frontend-разработчик`,
+        short_name: `Павел Дубицкий - frontend-разработчик`,
+        description: `Павел Дубицкий - frontend-разработчик`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

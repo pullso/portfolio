@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "pullso portfolio",
+  "productName": "Павел Дубицкий - frontend-разработчик",
   "author": "pullso <pullso.code@gmail.com>",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
+    "firebase": "^9.6.1",
     "quasar": "^2.0.0"
   },
   "devDependencies": {
