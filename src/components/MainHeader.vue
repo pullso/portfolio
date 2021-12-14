@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-lg q-gutter-sm header q-pt-lg-md">
     <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-1 q-ml-md-lg header__left q-mb-lg q-pt-lg-xl justify-center">
+      <div class="col-12 col-sm-4 offset-sm-3 q-ml-md-lg header__left q-mb-lg q-pt-lg-xl justify-center">
         <div class="header__separator desktop-only"></div>
         <div class="text-subtitle1 text-italic animated fadeIn slower delay-1s">Здравствуйте, меня зовут</div>
         <div class="text-bold text-h4 animated fadeIn slower delay-1s">Павел Дубицкий</div>
@@ -29,7 +29,7 @@
           />
         </div>
       </div>
-      <div class="col-12 col-sm-4 offset-sm-1 header__right animated delay-5s fadeIn slower">
+      <div class="col-12 header__right animated delay-5s fadeIn slower ">
         <q-img
           src="https://pullso.github.io/img/man_min.png"
           spinner-color="white"
@@ -50,12 +50,12 @@ export default defineComponent({
 <style lang="sass" scoped>
 .header
   &__separator
-    padding-top: 80px
+    padding-top: 100px
   &__right
     max-width: 250px
-    margin: 0 auto
     height: 100%
-    object-fit: scale-down
+    @media screen and (max-width: 765px)
+      margin: 0 auto
   &__buttons
     max-width: 350px
 
