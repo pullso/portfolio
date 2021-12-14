@@ -3,6 +3,8 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG)
+// TODO remove console
+console.log(firebaseConfig, process.env.FIREBASE_CONFIG, `: firebaseConfig, process.env.FIREBASE_CONFIG`)
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
