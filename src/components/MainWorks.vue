@@ -9,15 +9,10 @@
     />
   </div>
   <div class="row justify-center">
-    <transition-group
-      appear
-      enter-active-class="animated fadeIn slower"
-      leave-active-class="animated fadeOut slow"
-    >
+
       <WorkCard v-for="card in filteredCards" :key="card"
                 :data="card"
       />
-    </transition-group>
   </div>
 </template>
 <script>
