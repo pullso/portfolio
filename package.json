@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
+  "description": "Павел Дубицкий - frontend-разработчик",
   "productName": "Павел Дубицкий - frontend-разработчик",
   "author": "pullso <pullso.code@gmail.com>",
   "private": true,
@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
-    "deploy": "vercel"
+    "deploy": "gh-pages -d docs"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
