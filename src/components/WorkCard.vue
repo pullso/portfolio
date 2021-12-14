@@ -4,7 +4,7 @@
     enter-active-class="animated fadeIn slower"
     leave-active-class="animated fadeOut slow"
   >
-    <div class="q-pa-sm items-start q-gutter-md">
+    <div class="q-pa-md items-start q-gutter-md">
       <q-card
         class="my-card col-12 col-md-4"
         flat
