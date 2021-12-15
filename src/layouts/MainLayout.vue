@@ -1,12 +1,12 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <q-header class="bg-white" bordered>
       <q-toolbar>
         <q-btn
-          flat
           dense
           round
-          color="black"
+          elevated
+          color="primary"
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
@@ -22,7 +22,10 @@
     <q-drawer
       v-model="leftDrawerOpen"
       class="bg-white"
+      width="250"
+      :breakpoint="700"
       bordered
+      overlay
     >
       <q-list>
         <div class="bg-grey-3 flex flex-center" style="height: 150px">

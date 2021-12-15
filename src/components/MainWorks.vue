@@ -1,18 +1,17 @@
 <template>
   <div class="q-pa-md row justify-center">
     <q-btn-toggle
-      unelevated
       v-model="toggle"
       toggle-color="primary"
       class="fadeIn slower animated"
       :options="toggleOptions"
+      unelevated
     />
   </div>
   <div class="row justify-center">
-
-      <WorkCard v-for="card in filteredCards" :key="card"
-                :data="card"
-      />
+    <WorkCard v-for="card in filteredCards" :key="card"
+      :data="card"
+    />
   </div>
 </template>
 <script>
@@ -57,6 +56,3 @@ export default defineComponent({
   }
 })
 </script>
-<style scoped lang="sass">
-
-</style>
