@@ -9,14 +9,14 @@
     />
   </div>
   <div class="row justify-center">
-    <WorkCard v-for="card in filteredCards" :key="card"
-      :data="card"
+    <AppCard v-for="card in filteredCards" :key="card"
+             :data="card" :user="user"
     />
   </div>
 </template>
 <script>
 import {defineComponent} from 'vue';
-import WorkCard from "components/WorkCard";
+import AppCard from "components/AppCard";
 import {db} from "boot/firebase";
 import {collection, getDocs} from 'firebase/firestore';
 
@@ -25,7 +25,6 @@ export default defineComponent({
   name: 'MainWorks',
   data() {
     return {
-      cards: [],
       toggle: null,
       toggleOptions: [
         {label: 'Все', value: null},
@@ -35,18 +34,9 @@ export default defineComponent({
       ]
     }
   },
-  async mounted() {
-    const querySnapshot = await getDocs(collection(db, "cards"));
-    querySnapshot.forEach((doc) => {
-      const card = doc.data()
-      card.idx = doc.id
-      card.categories = card.categories.map(cat => cat.toLowerCase())
-      this.cards.unshift(card)
-    });
-    this.cards = this.cards.sort((a, b) => a.id - b.id)
-  },
+  props: ['user', 'cards'],
   components: {
-    WorkCard
+    AppCard
   },
   computed: {
     filteredCards() {

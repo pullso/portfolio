@@ -11,7 +11,8 @@
         bordered
       >
         <q-img
-          :src="data.img.includes('https') ? data.img : 'https://pullso.github.io/' + data.img"
+          :src="data.img.includes('https')
+          ? data.img : 'https://pullso.github.io/' + data.img"
           loading="lazy"
           style="height: 300px; width: 100%"
           fit="fill"
@@ -43,7 +44,22 @@
             :href="data.link"
           />
           <q-space/>
-
+          <template v-if="user">
+            <q-btn
+              unelevated outline rounded
+              color="primary"
+              icon="edit"
+              size="small"
+              @click="goEdit"
+            />
+            <q-btn
+              unelevated outline rounded
+              color="primary"
+              icon="content_copy"
+              size="small"
+              @click="copyCard"
+            />
+          </template>
           <q-btn
             v-if="data"
             color="grey"
@@ -70,9 +86,11 @@
 
 <script>
 import {defineComponent} from 'vue';
+import {db} from "boot/firebase";
+import {doc, setDoc} from "firebase/firestore";
 
 export default defineComponent({
-  name: 'WorkCard',
+  name: 'AppCard',
   data() {
     return {
       expanded: false,
@@ -81,6 +99,19 @@ export default defineComponent({
   props: {
     data: {
       type: Object,
+    },
+    user: {
+      type: Object
+    }
+  },
+  methods: {
+    goEdit() {
+      this.$router.push(`/edit/${this.data.firestoreId}`)
+    },
+    async copyCard() {
+      const id = String(Date.now())
+      await setDoc(doc(db, "cards", id), this.data);
+      await this.$router.push(`/edit/${id}`)
     }
   }
 })
