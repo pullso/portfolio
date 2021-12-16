@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {defineComponent, onMounted, ref} from 'vue';
 import MainHeader from "components/MainHeader";
 import MainWorks from "components/MainWorks";
 import MainCertificates from "components/MainCertificates";
@@ -19,25 +19,30 @@ import {db} from "boot/firebase";
 export default defineComponent({
   name: 'PageIndex',
   components: {MainAbout, MainCertificates, MainWorks, MainHeader},
-  async mounted() {
-    const querySnapshot = await getDocs(collection(db, "cards"));
-    querySnapshot.forEach((doc) => {
-      const card = doc.data()
-      card.firestoreId = doc.id
-      card.categories = card.categories.map(cat => cat.toLowerCase())
-      this.allCards.unshift(card)
-    });
+  setup() {
+    const currentUser = ref(getAuth()?.currentUser)
+    let allCards = []
+    const workCards = ref([])
+    const certificates = ref([])
 
-    this.allCards = this.allCards.sort((a, b) => a.id - b.id)
-    this.workCards = this.allCards.filter(card=>!card.isCertificate)
-    this.certificates = this.allCards.filter(card=>card.isCertificate)
-  },
-  data() {
+    onMounted(async () => {
+      const querySnapshot = await getDocs(collection(db, "cards"));
+      querySnapshot.forEach((doc) => {
+        const card = doc.data()
+        card.firestoreId = doc.id
+        card.categories = card.categories.map(cat => cat.toLowerCase())
+        allCards.unshift(card)
+        allCards = allCards.sort((a, b) => a.id - b.id)
+      })
+
+      workCards.value = allCards.filter(card => !card.isCertificate)
+      certificates.value = allCards.filter(card => card.isCertificate)
+    })
+
     return {
-      currentUser: getAuth()?.currentUser,
-      allCards:[],
-      workCards: [],
-      certificates: [],
+      currentUser,
+      workCards,
+      certificates,
     }
   },
 })

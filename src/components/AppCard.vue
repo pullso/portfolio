@@ -1,9 +1,5 @@
 <template>
-  <transition
-    appear
-    enter-active-class="animated fadeIn slower"
-    leave-active-class="animated fadeOut slow"
-  >
+
     <div class="q-pa-md items-start q-gutter-md">
       <q-card
         class="my-card col-12 col-md-4"
@@ -81,19 +77,31 @@
         </q-slide-transition>
       </q-card>
     </div>
-  </transition>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {defineComponent, ref} from 'vue';
 import {db} from "boot/firebase";
 import {doc, setDoc} from "firebase/firestore";
+import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'AppCard',
-  data() {
+  setup(props) {
+    const expanded = ref(false)
+    const router = useRouter()
+    function goEdit() {
+      router.push(`/edit/${props.data.firestoreId}`)
+    }
+    async function copyCard() {
+      const id = String(Date.now())
+      await setDoc(doc(db, "cards", id), props.data);
+      await router.push(`/edit/${id}`)
+    }
     return {
-      expanded: false,
+      expanded,
+      goEdit,
+      copyCard
     }
   },
   props: {
@@ -105,14 +113,7 @@ export default defineComponent({
     }
   },
   methods: {
-    goEdit() {
-      this.$router.push(`/edit/${this.data.firestoreId}`)
-    },
-    async copyCard() {
-      const id = String(Date.now())
-      await setDoc(doc(db, "cards", id), this.data);
-      await this.$router.push(`/edit/${id}`)
-    }
+
   }
 })
 </script>

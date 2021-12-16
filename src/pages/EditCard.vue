@@ -67,55 +67,61 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import {defineComponent, onMounted, ref} from "vue";
 import {db} from "boot/firebase";
 import {deleteDoc, doc, getDoc, setDoc} from "firebase/firestore"
 import AppCard from "components/AppCard";
 import {getAuth} from "firebase/auth";
+import {useRoute, useRouter} from "vue-router";
 
 export default defineComponent({
   name: "EditCard.vue",
-  async mounted() {
-    if (!this.user) return
-    const cardRef = doc(db, "cards", this.id);
-    const cardSnap = await getDoc(cardRef);
+  setup() {
+    const card = ref(null)
+    const router = useRouter()
+    const route = useRoute()
+    const id = ref(route.params?.id)
+    const user = ref(getAuth()?.currentUser)
 
-    if (cardSnap.exists()) {
-      this.card = await cardSnap.data()
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+    onMounted(async () => {
+      if (!user.value) return
+      const cardRef = doc(db, "cards", id.value);
+      const cardSnap = await getDoc(cardRef);
+
+      if (cardSnap.exists()) {
+        card.value = await cardSnap.data()
+      } else {
+        console.log("No such document!");
+      }
+    })
+
+    function getCategories() {
+      card.value.categories = card.value.categories.split(',')
     }
-  },
-  data() {
+
+    async function saveCard() {
+      await setDoc(doc(db, "cards", id.value), card.value);
+      goBack()
+    }
+
+    function goBack() {
+      router.push('/')
+    }
+
+    async function deleteCard() {
+      await deleteDoc(doc(db, "cards", id.value));
+      goBack()
+    }
+
     return {
-      card: null,
-      user: getAuth()?.currentUser
+      card,
+      user,
+      id,
+      goBack, deleteCard, saveCard, getCategories
     }
   },
   components: {
     AppCard
-  },
-  computed: {
-    id() {
-      return this.$route.params.id
-    }
-  },
-  methods: {
-    getCategories() {
-      this.card.categories = this.card.categories.split(',')
-    },
-    async saveCard() {
-      await setDoc(doc(db, "cards", this.id), this.card);
-      this.goBack()
-    },
-    goBack() {
-      this.$router.push('/')
-    },
-    async deleteCard() {
-      await deleteDoc(doc(db, "cards", this.id));
-      this.goBack()
-    }
   }
 })
 </script>

@@ -9,23 +9,22 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
-import {signInWithEmailAndPassword, getAuth} from "firebase/auth";
+import {defineComponent, ref} from "vue";
+import {useRouter} from "vue-router";
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 
 export default defineComponent({
   name: "PageLogin.vue",
-  data() {
-    return {
-      email: null,
-      password: null,
-    }
-  },
-  methods: {
-    login() {
+  setup() {
+    const email = ref(null)
+    const password = ref(null)
+    const router = useRouter()
+
+    function login() {
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.password)
+      signInWithEmailAndPassword(auth, email.value, password.value)
         .then(() => {
-          this.$router.push('/')
+          router.push('/')
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -33,7 +32,13 @@ export default defineComponent({
           console.log(error.code, `: error.code`)
         });
     }
-  },
+
+    return {
+      email,
+      password,
+      login
+    }
+  }
 })
 </script>
 
