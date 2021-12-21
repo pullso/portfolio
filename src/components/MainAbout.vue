@@ -6,7 +6,7 @@
           Кто я
         </div>
       </div>
-      <div class="justify-center animated fadeInRight">
+      <div class="justify-center col-12 col-md-7 col-lg-4 animated fadeInRight">
         Меня зовут Павел. Я Front-End разработчик.<br> Главное для меня —
         <span class="animated fadeIn bg-grey-4">
         писать код и сервисы ДЛЯ ЛЮДЕЙ
