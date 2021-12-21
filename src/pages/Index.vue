@@ -15,7 +15,6 @@ import {getAuth} from "firebase/auth";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "boot/firebase";
 
-
 export default defineComponent({
   name: 'PageIndex',
   components: {MainAbout, MainCertificates, MainWorks, MainHeader},

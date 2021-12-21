@@ -12,7 +12,7 @@
   <div class="row justify-center">
     <transition-group
       appear
-      enter-active-class="animated fadeIn"
+      enter-active-class=" animated fadeIn"
       leave-active-class="animated fadeOut"
     >
       <AppCard v-for="card in filteredCards" :key="card"
@@ -29,7 +29,7 @@ export default defineComponent({
   name: 'MainWorks',
   setup(props) {
     const toggle = ref(null)
-    // TODO remove console
+
     const toggleOptions = ref([
       {label: 'Все', value: null},
       {label: 'Vue.js', value: 'vue'},
