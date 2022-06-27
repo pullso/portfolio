@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" id="about">
     <div class="row justify-center">
       <div class="col-12 text-h4 text-center text-uppercase text-bold text-primary">Обо мне
         <div class="col-12 animated slower fadeIn text-h4 text-center text-uppercase text-bold text-grey-4">

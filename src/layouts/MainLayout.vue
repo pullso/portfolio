@@ -45,6 +45,7 @@
           v-for="link in menuLinks"
           :key="link.title"
           v-bind="link"
+          :target="''"
         />
         <q-separator/>
         <q-item-label header>
@@ -96,7 +97,7 @@ const menuLinks = [
   {
     title: 'Сертификаты',
     icon: 'book',
-    link: '#setificates'
+    link: '#certificates'
   },
   {
     title: 'Обо мне',

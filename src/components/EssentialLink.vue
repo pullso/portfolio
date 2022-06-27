@@ -3,7 +3,7 @@
     clickable
     tag="a"
     :href="link"
-    target="_blank"
+    :target="target"
   >
     <q-item-section
       v-if="icon"
@@ -43,6 +43,11 @@ export default defineComponent({
       type: String,
       default: ''
     },
+
+    target: {
+      type: String,
+      default: '_blank'
+    }
   }
 })
 </script>
