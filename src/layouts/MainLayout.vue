@@ -77,6 +77,11 @@ const contactLinks = [
     link: 'https://t.me/pullso'
   },
   {
+    title: 'LinkedIn',
+    icon: 'people',
+    link: 'https://www.linkedin.com/in/pavel-dubitskiy'
+  },
+  {
     title: 'Github',
     icon: 'code',
     link: 'https://github.com/pullso'
