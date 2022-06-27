@@ -1,6 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-4 q-ma-md q-gutter-md">
+    <div class="col-md-4 q-ma-md q-gutter-md col-xs-8">
+      <div class="text-center text-red">{{ message }}</div>
       <q-input outlined label="email" type="email" v-model="email"/>
       <q-input outlined label="password" type="password" v-model="password"/>
       <q-btn @click="login" label="login"/>
@@ -18,6 +19,7 @@ export default defineComponent({
   setup() {
     const email = ref(null)
     const password = ref(null)
+    const message = ref('')
     const router = useRouter()
 
     function login() {
@@ -29,6 +31,7 @@ export default defineComponent({
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          message.value = `${error.code} ${errorMessage}`
           console.log(error.code, `: error.code`)
         });
     }
@@ -36,7 +39,8 @@ export default defineComponent({
     return {
       email,
       password,
-      login
+      login,
+      message,
     }
   }
 })

@@ -80,23 +80,28 @@ const contactLinks = [
     icon: 'code',
     link: 'https://github.com/pullso'
   },
+  {
+    title: 'Gitlab',
+    icon: 'code',
+    link: 'https://gitlab.com/pullso'
+  },
 ];
 
 const menuLinks = [
   {
     title: 'Портфолио',
     icon: 'work',
-    link: 'works'
+    link: '#works'
   },
   {
     title: 'Сертификаты',
     icon: 'book',
-    link: '/#setificats'
+    link: '#setificates'
   },
   {
     title: 'Обо мне',
     icon: 'person',
-    link: '/#about'
+    link: '#about'
   },
 
 ];
