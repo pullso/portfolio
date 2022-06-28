@@ -1,4 +1,5 @@
 <template>
+  <div class="progress"></div>
   <q-layout view="hHh Lpr lff">
     <q-header class="bg-white" bordered>
       <q-toolbar>
@@ -56,7 +57,7 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
-import {defineComponent, ref} from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 
 const contactLinks = [
   {
@@ -110,6 +111,20 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false)
 
+    onMounted(async () => {
+      const progress = document.querySelector(".progress");
+
+      window.addEventListener("scroll", () => {
+        let windowScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        let windowHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        let per = (windowScroll / windowHeight) * 100;
+        progress.style.width = per + "%";
+      });
+    })
+
     return {
       contactLinks,
       menuLinks,
@@ -121,3 +136,15 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.progress {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 5px;
+  background-color: $primary;
+  z-index: 10000;
+}
+</style>
