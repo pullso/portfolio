@@ -40,18 +40,6 @@
               </div>
             </div>
         </div>
-        <q-separator/>
-        <EssentialLink
-          v-for="link in menuLinks"
-          :key="link.title"
-          v-bind="link"
-          :target="''"
-        />
-        <q-separator/>
-        <q-item-label header>
-          Контакты
-        </q-item-label>
-
         <EssentialLink
           v-for="link in contactLinks"
           :key="link.title"
