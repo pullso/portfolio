@@ -102,7 +102,8 @@ export default defineComponent({
       await router.push(`/edit/${id}`)
     }
 
-    function formatString(string) {
+    function formatString(val) {
+      const string = val.trim()
       return string[0].toUpperCase() + string.substring(1)
     }
 
