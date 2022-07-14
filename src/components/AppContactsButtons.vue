@@ -24,10 +24,8 @@
 
 <script>
 export default {
-  name: "AppContactsButtons"
-}
+  name: "AppContactsButtons",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

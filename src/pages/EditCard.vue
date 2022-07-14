@@ -3,19 +3,9 @@
     <div class="q-ma-md text-bold">Редактирование id:{{ id }}</div>
     <div class="row q-mx-md">
       <div class="col-6">
-        <div class=" q-gutter-y-md column">
-          <q-input
-            lazy
-            outlined
-            label="ID"
-            v-model="card.id"
-          />
-          <q-input
-            lazy
-            outlined
-            label="Название"
-            v-model="card.title"
-          />
+        <div class="q-gutter-y-md column">
+          <q-input lazy outlined label="ID" v-model="card.id" />
+          <q-input lazy outlined label="Название" v-model="card.title" />
           <q-input
             lazy
             outlined
@@ -45,87 +35,93 @@
             v-model="card.img"
           />
           <div class="row">
-            <q-toggle v-model="card.mobileSupport" label="Мобильная адаптация"/>
-            <q-toggle v-model="card.isCertificate" label="Сертификат"/>
+            <q-toggle
+              v-model="card.mobileSupport"
+              label="Мобильная адаптация"
+            />
+            <q-toggle v-model="card.isCertificate" label="Сертификат" />
           </div>
         </div>
       </div>
-      <AppCard :data="card" lazy/>
+      <AppCard :data="card" lazy />
     </div>
     <div class="q-pa-md q-gutter-lg">
-      <q-btn icon="arrow_back" color="black" label="Назад" @click="goBack"/>
-      <q-btn icon="save" color="green" label="Сохранить" @click="saveCard"/>
-      <q-btn icon="delete" color="red" outline label="Удалить" @click="deleteCard"/>
+      <q-btn icon="arrow_back" color="black" label="Назад" @click="goBack" />
+      <q-btn icon="save" color="green" label="Сохранить" @click="saveCard" />
+      <q-btn
+        icon="delete"
+        color="red"
+        outline
+        label="Удалить"
+        @click="deleteCard"
+      />
     </div>
   </template>
-  <template v-else-if="card">
-    Данные с таким id не найдены
-  </template>
-  <template v-else>
-    Ошибка авторизации
-  </template>
+  <template v-else-if="card"> Данные с таким id не найдены </template>
+  <template v-else> Ошибка авторизации </template>
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from "vue";
-import {db} from "boot/firebase";
-import {deleteDoc, doc, getDoc, setDoc} from "firebase/firestore"
+import { defineComponent, onMounted, ref } from "vue";
+import { db } from "boot/firebase";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import AppCard from "components/AppCard";
-import {getAuth} from "firebase/auth";
-import {useRoute, useRouter} from "vue-router";
+import { getAuth } from "firebase/auth";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "EditCard.vue",
   setup() {
-    const card = ref(null)
-    const router = useRouter()
-    const route = useRoute()
-    const id = ref(route.params?.id)
-    const user = ref(getAuth()?.currentUser)
+    const card = ref(null);
+    const router = useRouter();
+    const route = useRoute();
+    const id = ref(route.params?.id);
+    const user = ref(getAuth()?.currentUser);
 
     onMounted(async () => {
-      if (!user.value) return
+      if (!user.value) return;
       const cardRef = doc(db, "cards", id.value);
       const cardSnap = await getDoc(cardRef);
 
       if (cardSnap.exists()) {
-        card.value = await cardSnap.data()
+        card.value = await cardSnap.data();
       } else {
         console.log("No such document!");
       }
-    })
+    });
 
     function getCategories() {
-      card.value.categories = card.value.categories.split(',')
+      card.value.categories = card.value.categories.split(",");
     }
 
     async function saveCard() {
       await setDoc(doc(db, "cards", id.value), card.value);
-      goBack()
+      goBack();
     }
 
     function goBack() {
-      router.push('/')
+      router.push("/");
     }
 
     async function deleteCard() {
       await deleteDoc(doc(db, "cards", id.value));
-      goBack()
+      goBack();
     }
 
     return {
       card,
       user,
       id,
-      goBack, deleteCard, saveCard, getCategories
-    }
+      goBack,
+      deleteCard,
+      saveCard,
+      getCategories,
+    };
   },
   components: {
-    AppCard
-  }
-})
+    AppCard,
+  },
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

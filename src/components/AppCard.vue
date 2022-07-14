@@ -1,26 +1,25 @@
 <template>
-
   <div class="q-pa-md items-start q-gutter-md">
-    <q-card
-      class="my-card col-12 col-md-4"
-      flat
-      bordered
-    >
+    <q-card class="my-card col-12 col-md-4" flat bordered>
       <q-img
-        :src="data.img.includes('https')
-          ? data.img : 'https://pullso.github.io/' + data.img"
+        :src="
+          data.img.includes('https')
+            ? data.img
+            : 'https://pullso.github.io/' + data.img
+        "
         loading="lazy"
         style="height: 300px; width: 100%"
         fit="fill"
       />
-      <q-separator/>
+      <q-separator />
 
       <q-card-section>
         <q-chip
           size="md"
-          v-for="(c,idx) in data.categories" :key="c"
-          :color="idx=== 0 ? 'primary' : ''"
-          :text-color="idx===0 ? 'white' : ''"
+          v-for="(c, idx) in data.categories"
+          :key="c"
+          :color="idx === 0 ? 'primary' : ''"
+          :text-color="idx === 0 ? 'white' : ''"
         >
           <div class="text-overline">{{ formatString(c) }}</div>
         </q-chip>
@@ -36,21 +35,26 @@
           flat
           type="a"
           color="primary"
-          label="Перейти" icon="launch"
+          label="Перейти"
+          icon="launch"
           target="_blank"
           :href="data.link"
         />
-        <q-space/>
+        <q-space />
         <template v-if="user">
           <q-btn
-            unelevated outline rounded
+            unelevated
+            outline
+            rounded
             color="primary"
             icon="edit"
             size="small"
             @click="goEdit"
           />
           <q-btn
-            unelevated outline rounded
+            unelevated
+            outline
+            rounded
             color="primary"
             icon="content_copy"
             size="small"
@@ -70,7 +74,7 @@
 
       <q-slide-transition>
         <div v-show="expanded">
-          <q-separator/>
+          <q-separator />
           <q-card-section>
             <div v-html="data.description"></div>
           </q-card-section>
@@ -81,49 +85,49 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue';
-import {db} from "boot/firebase";
-import {doc, setDoc} from "firebase/firestore";
-import {useRouter} from "vue-router";
+import { defineComponent, ref } from "vue";
+import { db } from "boot/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'AppCard',
+  name: "AppCard",
   setup(props) {
-    const expanded = ref(false)
-    const router = useRouter()
+    const expanded = ref(false);
+    const router = useRouter();
 
     function goEdit() {
-      router.push(`/edit/${props.data.firestoreId}`)
+      router.push(`/edit/${props.data.firestoreId}`);
     }
 
     async function copyCard() {
-      const id = String(Date.now())
+      const id = String(Date.now());
       await setDoc(doc(db, "cards", id), props.data);
-      await router.push(`/edit/${id}`)
+      await router.push(`/edit/${id}`);
     }
 
     function formatString(val) {
-      const string = val.trim()
-      return string[0].toUpperCase() + string.substring(1)
+      const string = val.trim();
+      return string[0].toUpperCase() + string.substring(1);
     }
 
     return {
       expanded,
       goEdit,
       copyCard,
-      formatString
-    }
+      formatString,
+    };
   },
   props: {
     data: {
       type: Object,
     },
     user: {
-      type: Object
-    }
+      type: Object,
+    },
   },
-  methods: {}
-})
+  methods: {},
+});
 </script>
 
 <style lang="sass" scoped>
@@ -135,6 +139,4 @@ export default defineComponent({
   &__title
     font-size: 16px
     font-weight: 700
-
 </style>
-
